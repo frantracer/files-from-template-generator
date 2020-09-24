@@ -3,7 +3,7 @@ const fs = require("fs")
 
 try {
     console.log("Reading template...")
-    const input = fs.readFileSync("./examples/basic/templates/index.html").toString();
+    const input = fs.readFileSync("./examples/basic/templates/index.html").toString()
 
     console.log("Reading profile...")
     const profile = JSON.parse(fs.readFileSync("./examples/basic/profiles/profile1.json").toString())
