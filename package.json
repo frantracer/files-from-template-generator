@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/frantracer/files-from-template-generator/issues"
   },
-  "homepage": "https://github.com/frantracer/files-from-template-generator#readme"
+  "homepage": "https://github.com/frantracer/files-from-template-generator#readme",
+  "dependencies": {
+    "nunjucks": "^3.2.2"
+  }
 }
