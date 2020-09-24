@@ -1,0 +1,23 @@
+{
+  "name": "files-from-template-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frantracer/files-from-template-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frantracer/files-from-template-generator/issues"
+  },
+  "homepage": "https://github.com/frantracer/files-from-template-generator#readme"
+}
