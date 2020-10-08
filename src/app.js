@@ -2,35 +2,40 @@ const nunjucks = require('nunjucks')
 const fs = require("fs")
 const path = require('path')
 
-let project_name = 'basic'
-
 try {
-    let templates_dir = `./examples/${project_name}/templates`
-    let profiles_dir = `./examples/${project_name}/profiles`
-    let outputs_dir = `./examples/${project_name}/outputs`
+    const projects_dir = './examples'
+    let project_names = fs.readdirSync(projects_dir)
 
-    let profiles_path = profiles_dir + "/profiles.csv"
+    project_names.forEach((project_name) => {
+        console.log(`Reading project: ${project_name}`)
 
-    let template_filenames = fs.readdirSync(templates_dir)
-    template_filenames.forEach((template_filename) => {
-        console.log(`Reading template: ${template_filename}`)
+        let templates_dir = `${projects_dir}/${project_name}/templates`
+        let profiles_dir = `${projects_dir}/${project_name}/profiles`
+        let outputs_dir = `${projects_dir}/${project_name}/outputs`
 
-        let template_extension = path.extname(template_filename)
-        let template_name = path.basename(template_filename, template_extension)
+        let profiles_path = profiles_dir + "/profiles.csv"
 
-        const input = fs.readFileSync(templates_dir + "/" + template_filename).toString()
-        const renderer = nunjucks.compile(input)
+        let template_filenames = fs.readdirSync(templates_dir)
+        template_filenames.forEach((template_filename) => {
+            console.log(`\tReading template: ${template_filename}`)
 
-        let profiles = csvJSON(profiles_path)
-        profiles.forEach((profile) => {
-            let profile_name = profile["profile"]
-            console.log(`\tReading profile: ${profile_name}`)
+            let template_extension = path.extname(template_filename)
+            let template_name = path.basename(template_filename, template_extension)
 
-            let output = renderer.render(profile)
+            const input = fs.readFileSync(templates_dir + "/" + template_filename).toString()
+            const renderer = nunjucks.compile(input)
 
-            let output_path = outputs_dir + "/" + template_name + "+" + profile_name + template_extension
-            fs.writeFileSync(output_path, output)
-            console.log(`\t\tNew file saved in ${output_path}`)
+            let profiles = csvJSON(profiles_path)
+            profiles.forEach((profile) => {
+                let profile_name = profile["profile"]
+                console.log(`\t\tReading profile: ${profile_name}`)
+
+                let output = renderer.render(profile)
+
+                let output_path = outputs_dir + "/" + template_name + "+" + profile_name + template_extension
+                fs.writeFileSync(output_path, output)
+                console.log(`\t\t\tNew file saved in ${output_path}`)
+            })
         })
     })
 } catch (e) {
