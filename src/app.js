@@ -40,7 +40,7 @@ try {
 function csvJSON(csv_path){
     let result = [];
     const newline = "\n"
-    const separator = ','
+    const separator = ';'
 
     const data = fs.readFileSync(csv_path).toString()
     const lines = data.split(newline);
