@@ -32,7 +32,7 @@ try {
 
                 let output = renderer.render(profile)
 
-                let output_path = outputs_dir + "/" + template_name + "+" + profile_name + template_extension
+                let output_path = outputs_dir + "/" + profile_name + "+" + template_name + template_extension
                 fs.writeFileSync(output_path, output)
                 console.log(`\t\t\tNew file saved in ${output_path}`)
             })
