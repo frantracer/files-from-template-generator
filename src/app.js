@@ -1,3 +1,4 @@
+const parse = require('csv-parse/lib/sync')
 const nunjucks = require('nunjucks')
 const fs = require("fs")
 const path = require('path')
@@ -25,7 +26,7 @@ try {
             const input = fs.readFileSync(templates_dir + "/" + template_filename).toString()
             const renderer = nunjucks.compile(input)
 
-            let profiles = csvJSON(profiles_path)
+            const  profiles = csvJSON(profiles_path)
             profiles.forEach((profile) => {
                 let profile_name = profile["profile"]
                 console.log(`\t\tReading profile: ${profile_name}`)
@@ -43,25 +44,13 @@ try {
 }
 
 function csvJSON(csv_path){
-    let result = [];
-    const newline = "\n"
-    const separator = ';'
-
     const data = fs.readFileSync(csv_path).toString()
-    const lines = data.split(newline);
+	
+	const results = parse(data, {
+		columns: true,
+		delimiter: ";",
+		skip_empty_lines: true
+	})
 
-    const headers = lines[0].split(separator);
-
-    for(let i = 1; i < lines.length; i++){
-        const current_values = lines[i].split(separator);
-
-        let obj = {};
-        for(let j = 0; j < headers.length; j++){
-            obj[headers[j]] = current_values[j];
-        }
-
-        result.push(obj);
-    }
-
-    return result;
+    return results;
 }
